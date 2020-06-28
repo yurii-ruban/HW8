@@ -22,9 +22,7 @@ VintagePort::VintagePort(const VintagePort& vp) : Port(vp),
 {
 }
 
-VintagePort::~VintagePort()
-{
-}
+VintagePort::~VintagePort(){}
 
 VintagePort& VintagePort::operator = (const VintagePort& vp)
 {

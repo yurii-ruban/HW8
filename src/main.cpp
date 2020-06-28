@@ -1,5 +1,12 @@
 #include "vintage_port.h"
-#include <typeinfo>
+
+void clear(Port** p, std::size_t SIZE)
+{
+    for(auto i = 0; i < SIZE; ++i)
+    {
+        delete p[i];
+    }
+}
 
 int main(int argc, char** argv)
 {
@@ -40,6 +47,8 @@ int main(int argc, char** argv)
 
     Port p = *(pPorts[3]);
     std::cout << p << std::endl;
+
+    clear(pPorts, SIZE);
 
     return 0;
 }
