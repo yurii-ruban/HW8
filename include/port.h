@@ -2,25 +2,34 @@
 #define _PORT_H
 
 #include <iostream>
+#include <cstddef>
+#include <string>
+#include <cstring>
 
 class Port {
+
 private:
-    char* brand;
-    char style[20]; // e.g. tawny, ruby, vintage
-    int bottles;
+    std::string m_brand;
+    std::string m_style; // e.g. tawny, ruby, vintage
+    std::size_t m_bottles;
+
+    virtual std::ostream& print(std::ostream& os) const; //Need this method to call correct ostream overloading by Base pointer
 
 public:
-    Port(const char* br = "none", const char* st = "none", int b = 0);
+    Port(const char* brand = "none", const char* style = "none", std::size_t bottles = 0);
+    Port(const std::string& brand = "none", const std::string& style = "none", std::size_t bottles = 0);
     Port(const Port& p);
-    virtual ~Port() { delete [] brand; }
+    virtual ~Port();
 
     Port& operator= (const Port & p);
-    Port& operator+= (int b) ; // adds b to bottles
-    Port& operator-= (int b); // subtracts b from bottles, if possible
+    Port& operator+= (std::size_t b) ; // adds b to bottles
+    Port& operator-= (std::size_t b); // subtracts b from bottles, if possible
 
-    int BottleCount() const { return bottles; }
+    std::size_t BottleCount() const;
     virtual void Show() const;
-    friend std::ostream& operator<< (std::ostream& os, const Port& p);
+    friend std::ostream& operator << (std::ostream& os, const Port& p);
+
+    static const std::size_t maxStyleLength = 20;
 };
 
 #endif

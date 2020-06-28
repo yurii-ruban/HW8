@@ -5,17 +5,23 @@
 
 class VintagePort : public Port { // style always == "vintage"
 private:
-    char* nickname; // like "The Noble", "Old Velvet", etc.
-    int year; // year of bottling
+    std::string m_nickname; // like "The Noble", "Old Velvet", etc.
+    std::size_t m_year; // year of bottling
+
+    std::ostream& print(std::ostream& os) const; //Need this method to call correct ostream overloading by Base pointer
+    
 public:
     VintagePort();
-    VintagePort(const char* br, int b, const char* nn, int y);
+    VintagePort(const char* brand, std::size_t bottles, const char* nickname, std::size_t year);
+    VintagePort(const std::string& brand, std::size_t bottles, const std::string& nickname, std::size_t year);
     VintagePort(const VintagePort& vp);
-    ~VintagePort() { delete [] nickname; }
+    virtual ~VintagePort() override;
 
-    VintagePort & operator=(const VintagePort & vp);
-    void Show() const;
-    friend std::ostream& operator<<(std::ostream& os, const VintagePort& vp);
+    VintagePort& operator = (const VintagePort& vp);
+    virtual void Show() const override;
+    friend std::ostream& operator << (std::ostream& os, const VintagePort& vp);
+    
+    static constexpr char const* type = "vintage";
 };
 
 #endif
